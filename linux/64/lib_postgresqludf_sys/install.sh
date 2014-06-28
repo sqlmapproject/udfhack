@@ -22,8 +22,8 @@
 USER="postgres"
 #PORT="5435"
 #VERSION="9.0"
-PORT="5434"
-VERSION="8.4"
+PORT="5432"
+VERSION="9.3"
 #PORT="5433"
 #VERSION="8.3"
 #PORT="5432"
@@ -44,6 +44,8 @@ if test $? -ne 0; then
 		echo "apt-get install postgresql-server-dev-8.4"
 	elif test "${VERSION}" == "9.0"; then
 		echo "apt-get install postgresql-server-dev-9.0"
+	elif test "${VERSION}" == "9.3"; then
+		echo "apt-get install postgresql-server-dev-9.3"
 	fi
 
 	exit 1
