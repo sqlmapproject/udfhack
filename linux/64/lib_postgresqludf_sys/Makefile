@@ -5,6 +5,11 @@ LIBDIR=/usr/lib/postgresql/9.3/lib
 	strip -sx lib_postgresqludf_sys.so
 	cp -f lib_postgresqludf_sys.so $(LIBDIR)/lib_postgresqludf_sys.so
 
+9.2:
+	gcc -Wall -I/usr/include/postgresql/9.2/server -Os -shared lib_postgresqludf_sys.c -fPIC -o lib_postgresqludf_sys.so
+	strip -sx lib_postgresqludf_sys.so
+	cp -f lib_postgresqludf_sys.so $(LIBDIR)/lib_postgresqludf_sys.so
+
 9.1:
 	gcc -Wall -I/usr/include/postgresql/9.1/server -Os -shared lib_postgresqludf_sys.c -fPIC -o lib_postgresqludf_sys.so
 	strip -sx lib_postgresqludf_sys.so
