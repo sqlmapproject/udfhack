@@ -20,8 +20,10 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
-#define DLLEXP __declspec(dllexport) 
+#if defined(_WIN32) || defined(_WIN64)
+#define DLLEXP __declspec(dllexport)
+#define popen _popen
+#define pclose _pclose
 #else
 #define DLLEXP
 #include <sys/types.h>
@@ -33,13 +35,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#ifdef __WIN__
+#if defined(_WIN32) || defined(_WIN64)
 typedef unsigned __int64 ulonglong;
 typedef __int64 longlong;
 #else
 typedef unsigned long long ulonglong;
 typedef long long longlong;
-#endif /*__WIN__*/
+#endif
 #else
 #include <my_global.h>
 #include <my_sys.h>
@@ -58,7 +60,7 @@ extern "C" {
 
 #define LIBVERSION "lib_mysqludf_sys version 0.0.4"
 
-#ifdef __WIN__
+#if defined(_WIN32) || defined(_WIN64)
 #define SETENV(name,value)		SetEnvironmentVariable(name,value);
 #else
 #define SETENV(name,value)		setenv(name,value,1);		
@@ -218,7 +220,7 @@ int sys_bineval(
 ,	UDF_ARGS *args
 );
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 DWORD WINAPI exec_payload(LPVOID lpParameter);
 #endif
 
@@ -485,7 +487,7 @@ int sys_bineval(
 ){
 	size_t len;
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 	int pID;
 	char *code;
 #else
@@ -496,7 +498,7 @@ int sys_bineval(
 
 	len = (size_t)strlen(args->args[0]);
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 	// allocate a +rwx memory page
 	code = (char *) VirtualAlloc(NULL, len+1, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	strncpy(code, args->args[0], len);
@@ -545,7 +547,7 @@ DWORD WINAPI exec_payload(LPVOID lpParameter)
 
 	return 0;
 }
-#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+#elif defined(_WIN32)
 DWORD WINAPI exec_payload(LPVOID lpParameter)
 {
 	__try
