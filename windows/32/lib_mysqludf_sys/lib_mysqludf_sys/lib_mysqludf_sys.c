@@ -274,7 +274,8 @@ my_bool sys_get_init(
 ,	char *message
 ){
 	if(args->arg_count==1
-	&&	args->arg_type[0]==STRING_RESULT){
+	&&	args->arg_type[0]==STRING_RESULT
+	&&	args->args[0]!=NULL){
 		initid->maybe_null = 1;
 		return 0;
 	} else {
