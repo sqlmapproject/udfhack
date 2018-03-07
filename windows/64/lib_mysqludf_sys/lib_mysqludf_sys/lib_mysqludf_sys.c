@@ -447,13 +447,13 @@ char* sys_eval(
 
     result[0] = (char)0;
 
-	pipe = popen(args->args[0], "r");
-
-	while (fgets(line, sizeof(line), pipe) != NULL) {
-		linelen = strlen(line);
-		result = (char *)realloc(result, outlen + linelen);
-		strncpy(result + outlen, line, linelen);
-		outlen = outlen + linelen;
+	if ((args->args[0] != NULL) && (pipe = popen(args->args[0], "r")) != NULL) {
+		while (fgets(line, sizeof(line), pipe) != NULL) {
+			linelen = strlen(line);
+			result = (char *)realloc(result, outlen + linelen);
+			strncpy(result + outlen, line, linelen);
+			outlen = outlen + linelen;
+		}
 	}
 
 	pclose(pipe);
