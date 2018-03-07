@@ -381,7 +381,8 @@ my_bool sys_exec_init(
 ){
 	unsigned int i=0;
 	if(args->arg_count == 1
-	&& args->arg_type[i]==STRING_RESULT){
+	&& args->arg_type[i]==STRING_RESULT
+	&& args->args[i] != NULL){
 		return 0;
 	} else {
 		strcpy(
@@ -413,7 +414,8 @@ my_bool sys_eval_init(
 ){
 	unsigned int i=0;
 	if(args->arg_count == 1
-	&& args->arg_type[i]==STRING_RESULT){
+	&& args->arg_type[i]==STRING_RESULT
+	&& args->args[i] != NULL){
 		return 0;
 	} else {
 		strcpy(
