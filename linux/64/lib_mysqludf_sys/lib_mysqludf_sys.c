@@ -272,7 +272,8 @@ my_bool sys_get_init(
 ,	char *message
 ){
 	if(args->arg_count==1
-	&&	args->arg_type[0]==STRING_RESULT){
+	&&	args->arg_type[0]==STRING_RESULT
+	&&	args->args[0]!=NULL){
 		initid->maybe_null = 1;
 		return 0;
 	} else {
@@ -379,7 +380,8 @@ my_bool sys_exec_init(
 ){
 	unsigned int i=0;
 	if(args->arg_count == 1
-	&& args->arg_type[i]==STRING_RESULT){
+	&& args->arg_type[i]==STRING_RESULT
+	&& args->args[i] != NULL){
 		return 0;
 	} else {
 		strcpy(
@@ -411,7 +413,8 @@ my_bool sys_eval_init(
 ){
 	unsigned int i=0;
 	if(args->arg_count == 1
-	&& args->arg_type[i]==STRING_RESULT){
+	&& args->arg_type[i]==STRING_RESULT
+	&& args->args[i] != NULL){
 		return 0;
 	} else {
 		strcpy(
