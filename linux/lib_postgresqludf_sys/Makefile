@@ -1,4 +1,4 @@
-LIBDIR=/usr/lib/postgresql/9.3/lib
+LIBDIR=/usr/lib/postgresql/$@/lib
 
 9.3:
 	gcc -Wall -I/usr/include/postgresql/9.3/server -Os -shared lib_postgresqludf_sys.c -fPIC -o lib_postgresqludf_sys.so
